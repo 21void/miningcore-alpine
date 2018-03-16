@@ -1,0 +1,12 @@
+FROM microsoft/dotnet:2.1-sdk-alpine
+MAINTAINER 21void
+
+# install build-tools
+RUN apk add --no-cache --virtual .build-deps git cmake build-base \
+    openssl-dev pkgconfig boost-dev libsodium-dev && \
+# build
+    cd /tmp && git clone https://github.com/coinfoundry/miningcore && cd miningcore/src/MiningCore && \
+    sh ./linux-build.sh && \
+# cleanup build artifacts
+    apk del .build-deps
+
