@@ -16,7 +16,7 @@ WORKDIR /dotnetapp
 COPY --from=build-env /tmp/miningcore/build .
 COPY --from=build-env /tmp/miningcore/linux/libuv.so .
 
-RUN apk add --no-cache boost-system libssl1.0 libuv duo_unix && \
+RUN apk add --no-cache boost-system libssl1.0 libuv libsodium && \
     adduser -D -s /bin/sh -u 1000 user &&\
     sed -i -r 's/^user:!:/user:x:/' /etc/shadow && \
     sed -i -r '/^(user|root)/!d' /etc/group && \
