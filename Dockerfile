@@ -33,7 +33,7 @@ WORKDIR /dotnetapp
 COPY --from=build-env /dotnetapp .
 COPY --from=build-env /dotnetapp_linux/libuv.so .
 
-#USER user
+USER user
 
 # API
 EXPOSE 4000
