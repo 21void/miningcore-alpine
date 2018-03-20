@@ -13,8 +13,7 @@ RUN apk add --no-cache --virtual .build-deps git cmake build-base \
     sed -i 's|<TargetFramework>.*</TargetFramework>|<TargetFramework>netcoreapp2.1</TargetFramework>|' MiningCore.csproj && \
     cp /tmp/NuGet.config . && \
     cp /tmp/alpine-build.sh . && \
-    sh alpine-build.sh /dotnetapp && \
-    adduser -D -s /bin/sh -u 1000 user && chown -R user:user /dotnetapp
+    sh alpine-build.sh /dotnetapp
 
 FROM microsoft/dotnet-nightly:2.1-runtime-deps-alpine
 
@@ -30,8 +29,8 @@ RUN apk add --no-cache boost-system libssl1.0 libuv libsodium icu-libs && \
 
 WORKDIR /dotnetapp
 
-COPY --from=build-env /dotnetapp .
-COPY --from=build-env /dotnetapp_linux/libuv.so .
+COPY --chown=user --from=build-env /dotnetapp .
+COPY --chown=user --from=build-env /dotnetapp_linux/libuv.so .
 
 USER user
 
