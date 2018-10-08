@@ -5,8 +5,8 @@ BUILDIR=${1:-/dotnetapp}
 echo "Building into $BUILDIR"
 
 # build miningcore
-dotnet build -c Release -o $BUILDIR -r alpine.3.6-x64 && \
-dotnet publish -c Release -o $BUILDIR -r alpine.3.6-x64 && \
+dotnet build -c Release -o $BUILDIR -r alpine.3.7-x64 && \
+dotnet publish -c Release -o $BUILDIR -r alpine.3.7-x64 && \
 dotnet publish -c Release -o /dotnetapp_linux -r linux-x64
 
 # build libcryptonote
